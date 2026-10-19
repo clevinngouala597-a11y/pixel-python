@@ -1,6 +1,8 @@
 # Pixel Python
 
-Apprends Python comme un jeu : 5 mondes, 17 quêtes, 18 chapitres de cours avec quiz, XP, vies et quête du jour.
+Apprends Python comme un jeu : un monde ouvert à explorer avec Kai le serpent, 17 quêtes, 4 mini-projets, 18 chapitres de cours avec quiz, révisions espacées, XP, vies et quête du jour.
+
+Ta progression se transfère d'un appareil à l'autre avec un code de sauvegarde (en bas de l'accueil).
 
 ## Installer l'app
 

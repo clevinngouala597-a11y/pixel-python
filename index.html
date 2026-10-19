@@ -497,6 +497,67 @@ pre.out .fr { display: block; white-space: normal; margin-top: 6px; color: #ffd9
 .more { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; border-top: 3px dashed var(--panel-2); padding-top: 12px; }
 .more span { color: var(--muted); font-size: 15px; flex: 1 1 180px; }
 
+/* ---------- Monde ouvert, projets, révisions, sauvegarde ---------- */
+.explore { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 14px 16px; align-items: center; }
+.explore-art { width: 80px; height: 80px; display: grid; place-items: center; background: var(--w1); border: 3px solid var(--ink); box-shadow: inset 0 -10px 0 var(--grass-d); }
+.explore h3 { font-size: 28px; margin-top: 4px; }
+@media (max-width: 600px) { .explore { grid-template-columns: auto minmax(0, 1fr); } .explore .btn { grid-column: 1 / -1; } }
+.book.alt { background: var(--gold); }
+.stage { position: fixed; left: 0; right: 0; bottom: 0; top: 64px; overflow: hidden; background: #3f62d0; overscroll-behavior: none; z-index: 5; }
+.stage canvas { display: block; width: 100%; height: 100%; touch-action: none; cursor: pointer; }
+.wtoast {
+  position: absolute; top: 12px; left: 50%; transform: translateX(-50%); max-width: calc(100% - 32px);
+  background: var(--ink); color: var(--panel); border: 3px solid #000; box-shadow: 0 4px 0 #000;
+  padding: 8px 16px 6px; display: flex; flex-direction: column; align-items: center; gap: 3px; text-align: center; pointer-events: none;
+}
+.wtoast span { font-family: var(--f-display); font-size: 15px; line-height: 1; letter-spacing: .06em; text-transform: uppercase; color: #c9c4ef; }
+.wtoast b { font-family: var(--f-display); font-weight: 400; font-size: 24px; line-height: 1; color: var(--gold); }
+.whelp {
+  position: absolute; left: 50%; transform: translateX(-50%); bottom: calc(16px + env(safe-area-inset-bottom, 0px)); width: max-content; max-width: calc(100% - 32px);
+  background: rgba(29, 25, 54, .85); color: var(--panel); border: 2px solid #000; padding: 8px 12px 6px; font-family: var(--f-display); font-size: 17px; line-height: 1.1; text-align: center; pointer-events: none;
+}
+.dpad {
+  position: absolute; left: max(16px, env(safe-area-inset-left, 0px)); bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+  display: grid; grid-template-columns: repeat(3, 48px); grid-template-rows: repeat(3, 48px); gap: 3px;
+}
+.dbtn { background: rgba(29, 25, 54, .8); border: 3px solid #000; display: grid; place-items: center; cursor: pointer; touch-action: none; -webkit-user-select: none; user-select: none; }
+.dbtn:active { background: #4a4572; }
+.dbtn.up { grid-column: 2; grid-row: 1; } .dbtn.up svg { transform: rotate(-90deg); }
+.dbtn.left { grid-column: 1; grid-row: 2; } .dbtn.left svg { transform: rotate(180deg); }
+.dbtn.right { grid-column: 3; grid-row: 2; }
+.dbtn.down { grid-column: 2; grid-row: 3; } .dbtn.down svg { transform: rotate(90deg); }
+@media (hover: hover) and (pointer: fine) { .dpad { display: none; } }
+.wpanel {
+  position: absolute; left: 50%; transform: translateX(-50%); bottom: calc(16px + env(safe-area-inset-bottom, 0px)); width: min(520px, calc(100% - 32px));
+  background: var(--panel); border: 3px solid var(--ink); box-shadow: 0 5px 0 var(--ink); padding: 10px 12px; display: flex; gap: 12px; align-items: center;
+}
+.wp-tx { flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; gap: 3px; }
+.wp-tx b { font-family: var(--f-display); font-weight: 400; font-size: 22px; line-height: 1.05; }
+.wp-tx span { font-size: 14px; color: var(--muted); }
+@media (pointer: coarse) {
+  .wpanel { bottom: calc(176px + env(safe-area-inset-bottom, 0px)); }
+  .whelp { bottom: calc(176px + env(safe-area-inset-bottom, 0px)); }
+}
+.psteps { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.pstep { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 10px; align-items: center; padding: 8px 10px; border: 2px solid var(--ink); background: var(--panel); }
+.pstep.cur { background: #fff6cf; border-width: 3px; }
+.pstep.done { background: #d6f5cf; }
+.pstep.todo { color: var(--muted); border-style: dashed; }
+.pnum { width: 28px; height: 28px; display: grid; place-items: center; border: 2px solid var(--ink); background: var(--panel-2); font-family: var(--f-display); font-size: 18px; line-height: 1; }
+.pstep.done .pnum { background: var(--grass); }
+.pstep.cur .pnum { background: var(--gold); }
+.task.multi { white-space: pre-line; }
+.node.proj .node-btn { width: 86px; height: 72px; background: #fff4d6; }
+.node.proj.done .node-btn { background: var(--gold); }
+.node.proj.locked .node-btn { background: #e3dccb; }
+.savebox { display: flex; flex-direction: column; gap: 12px; }
+.savebox p { max-width: 62ch; }
+.savetext {
+  display: block; width: 100%; margin-top: 6px; padding: 10px; resize: vertical; word-break: break-all;
+  font-family: var(--f-code); font-size: 16px; border: 3px solid var(--ink); background: var(--panel-2); color: var(--ink);
+}
+.okmsg { font-weight: 600; color: var(--grass-d); }
+
 @media (max-width: 380px) {
   .hud-in { gap: 8px; font-size: 20px; }
   .htimer { display: none; }
@@ -2031,6 +2092,19 @@ async function checkSolution(level, rawCode, runPy) {
   if (level.expect != null && !sameOutput(r.out, level.expect)) {
     res.kind = "wrong"; res.msg = "Le résultat affiché ne correspond pas."; res.expected = level.expect; res.got = outLines(r.out).join("\n");
     return res;
+  }
+  var contains = level.contains || [];
+  if (contains.length) {
+    var got = outLines(r.out).map(function (l) { return l.trim(); });
+    for (var ci = 0; ci < contains.length; ci++) {
+      var want = contains[ci];
+      var found = got.some(function (l) { return l === want || deaccent(l) === deaccent(want); });
+      if (!found) {
+        res.kind = "wrong"; res.msg = "Ton programme doit afficher la ligne « " + want + " ».";
+        res.expected = contains.join("\n"); res.got = got.join("\n");
+        return res;
+      }
+    }
   }
   var lines = outLines(r.out).filter(function (l) { return l.trim() !== ""; });
   if (level.lines != null && lines.length !== level.lines) {
@@ -3760,6 +3834,123 @@ const COURSES = [
 
 if (typeof module !== "undefined") module.exports = { COURSES };
 
+/* ---------- Mini-projets de fin de monde ---------- */
+const PROJECTS = [
+  {
+    id: "p1", world: 1, title: "La fiche du héros",
+    intro: "Ton premier vrai programme : une fiche de personnage qui calcule ses propres stats. Chaque étape ajoute quelques lignes au même code.",
+    starter: "# Projet : la fiche du héros\n",
+    steps: [
+      {
+        task: "Crée trois variables : nom qui vaut \"Kai\", pv qui vaut 100 et force qui vaut 12.",
+        test: 'assert "nom" in globals() and nom == "Kai", "nom doit valoir \\"Kai\\""\nassert "pv" in globals() and pv == 100, "pv doit valoir 100"\nassert "force" in globals() and force == 12, "force doit valoir 12"',
+        hint: "Une variable par ligne : nom = \"Kai\", puis pv = 100, puis force = 12.",
+        solution: '# Projet : la fiche du héros\nnom = "Kai"\npv = 100\nforce = 12'
+      },
+      {
+        task: "Calcule degats = force * 3, puis pv_restants = pv - degats.",
+        test: 'assert "degats" in globals() and degats == 36, "degats doit valoir 36 (force * 3)"\nassert "pv_restants" in globals() and pv_restants == 64, "pv_restants doit valoir 64 (pv - degats)"',
+        must: [{ re: "\\*", msg: "Calcule degats avec force * 3." }],
+        hint: "degats = force * 3  puis  pv_restants = pv - degats",
+        solution: '# Projet : la fiche du héros\nnom = "Kai"\npv = 100\nforce = 12\ndegats = force * 3\npv_restants = pv - degats'
+      },
+      {
+        task: "Avec des f-strings, affiche la fiche sur 3 lignes :\n=== Kai ===\nPV : 64 / 100\nDégâts : 36",
+        contains: ["=== Kai ===", "PV : 64 / 100", "Dégâts : 36"],
+        must: [{ re: "f[\"']", msg: "Utilise des f-strings : f\"...\"" }, { re: "\\{\\s*nom\\s*\\}", msg: "Utilise {nom} dans la première ligne." }, { re: "\\{\\s*pv_restants\\s*\\}", msg: "Affiche {pv_restants} dans la ligne des PV." }],
+        hint: "print(f\"=== {nom} ===\")  puis  print(f\"PV : {pv_restants} / {pv}\")  puis  print(f\"Dégâts : {degats}\")",
+        solution: '# Projet : la fiche du héros\nnom = "Kai"\npv = 100\nforce = 12\ndegats = force * 3\npv_restants = pv - degats\nprint(f"=== {nom} ===")\nprint(f"PV : {pv_restants} / {pv}")\nprint(f"Dégâts : {degats}")'
+      }
+    ]
+  },
+  {
+    id: "p2", world: 2, title: "La boutique du village",
+    intro: "Le marchand veut afficher ses prix et savoir ce que tu peux acheter. Tu vas combiner listes, boucle et conditions.",
+    starter: "# Projet : la boutique du village\n",
+    steps: [
+      {
+        task: "Crée la liste objets = [\"épée\", \"bouclier\", \"potion\", \"carte\"] et la liste prix = [50, 35, 12, 8], dans le même ordre.",
+        test: 'assert "objets" in globals() and objets == ["épée", "bouclier", "potion", "carte"], "objets doit contenir épée, bouclier, potion, carte dans cet ordre"\nassert "prix" in globals() and prix == [50, 35, 12, 8], "prix doit valoir [50, 35, 12, 8]"',
+        hint: "objets = [\"épée\", \"bouclier\", \"potion\", \"carte\"]  puis  prix = [50, 35, 12, 8]",
+        solution: '# Projet : la boutique du village\nobjets = ["épée", "bouclier", "potion", "carte"]\nprix = [50, 35, 12, 8]'
+      },
+      {
+        task: "Avec une boucle for sur range(len(objets)), affiche chaque objet et son prix, par exemple : épée : 50 pièces",
+        contains: ["épée : 50 pièces", "bouclier : 35 pièces", "potion : 12 pièces", "carte : 8 pièces"],
+        must: [{ re: "range\\s*\\(\\s*len\\s*\\(", msg: "Parcours les positions avec for i in range(len(objets)):" }],
+        hint: "for i in range(len(objets)):  puis  print(f\"{objets[i]} : {prix[i]} pièces\")",
+        solution: '# Projet : la boutique du village\nobjets = ["épée", "bouclier", "potion", "carte"]\nprix = [50, 35, 12, 8]\nfor i in range(len(objets)):\n    print(f"{objets[i]} : {prix[i]} pièces")'
+      },
+      {
+        task: "Crée pieces = 40 avant la boucle. Dans la boucle, ajoute « (achetable) » à la fin de la ligne quand le prix est inférieur ou égal à pieces. Exemple : potion : 12 pièces (achetable)",
+        contains: ["épée : 50 pièces", "bouclier : 35 pièces (achetable)", "potion : 12 pièces (achetable)", "carte : 8 pièces (achetable)"],
+        test: 'assert "pieces" in globals() and pieces == 40, "Crée pieces = 40"',
+        must: [{ re: "\\bif\\b", msg: "Utilise un if pour comparer le prix à pieces." }],
+        hint: "Dans la boucle : if prix[i] <= pieces:  print(... + \" (achetable)\")  else:  print(...) normal.",
+        solution: '# Projet : la boutique du village\nobjets = ["épée", "bouclier", "potion", "carte"]\nprix = [50, 35, 12, 8]\npieces = 40\nfor i in range(len(objets)):\n    if prix[i] <= pieces:\n        print(f"{objets[i]} : {prix[i]} pièces (achetable)")\n    else:\n        print(f"{objets[i]} : {prix[i]} pièces")'
+      }
+    ]
+  },
+  {
+    id: "p3", world: 3, title: "Le combat contre le Slime",
+    intro: "Programme un vrai combat : une fonction d'attaque, un monstre rangé dans un dictionnaire, et une boucle qui tape jusqu'à la victoire.",
+    starter: "# Projet : le combat contre le Slime\n",
+    steps: [
+      {
+        task: "Écris une fonction attaque(pv, degats) qui renvoie les pv restants, sans jamais descendre sous 0.",
+        test: 'assert "attaque" in globals(), "Il faut une fonction appelée attaque"\nassert attaque(30, 8) == 22, "attaque(30, 8) doit renvoyer 22, pas " + repr(attaque(30, 8))\nassert attaque(5, 8) == 0, "attaque(5, 8) doit renvoyer 0, pas " + repr(attaque(5, 8))',
+        must: [{ re: "\\breturn\\b", msg: "La fonction doit utiliser return." }],
+        hint: "def attaque(pv, degats):  return max(pv - degats, 0)",
+        solution: '# Projet : le combat contre le Slime\ndef attaque(pv, degats):\n    return max(pv - degats, 0)'
+      },
+      {
+        task: "Crée un dictionnaire monstre avec la clé \"nom\" qui vaut \"Slime\" et la clé \"pv\" qui vaut 30.",
+        test: 'assert "monstre" in globals() and isinstance(monstre, dict), "Crée un dictionnaire appelé monstre"\nassert monstre.get("nom") == "Slime", "monstre[\\"nom\\"] doit valoir \\"Slime\\""\nassert monstre.get("pv") == 30, "monstre[\\"pv\\"] doit valoir 30"',
+        hint: "monstre = {\"nom\": \"Slime\", \"pv\": 30}",
+        solution: '# Projet : le combat contre le Slime\ndef attaque(pv, degats):\n    return max(pv - degats, 0)\n\nmonstre = {"nom": "Slime", "pv": 30}'
+      },
+      {
+        task: "Crée tours = 0. Avec une boucle while, tant que le monstre a des pv : enlève-lui 8 pv avec ta fonction attaque, puis ajoute 1 à tours. Ensuite, affiche : Slime vaincu en 4 tours",
+        contains: ["Slime vaincu en 4 tours"],
+        test: 'assert "tours" in globals() and tours == 4, "tours doit valoir 4 à la fin"\nassert monstre["pv"] == 0, "Le monstre doit finir à 0 pv"',
+        must: [{ re: "\\bwhile\\b", msg: "Utilise une boucle while." }, { re: "attaque\\s*\\(", msg: "Utilise ta fonction attaque dans la boucle." }],
+        hint: "while monstre[\"pv\"] > 0:  monstre[\"pv\"] = attaque(monstre[\"pv\"], 8)  puis  tours += 1. Après la boucle : print(f\"{monstre['nom']} vaincu en {tours} tours\")",
+        solution: '# Projet : le combat contre le Slime\ndef attaque(pv, degats):\n    return max(pv - degats, 0)\n\nmonstre = {"nom": "Slime", "pv": 30}\ntours = 0\nwhile monstre["pv"] > 0:\n    monstre["pv"] = attaque(monstre["pv"], 8)\n    tours += 1\nprint(f"{monstre[\'nom\']} vaincu en {tours} tours")'
+      }
+    ]
+  },
+  {
+    id: "p4", world: 4, title: "Le tableau des champions",
+    intro: "Construis un vrai petit système de classement avec une classe : des joueurs, leurs scores, et le calcul du champion.",
+    starter: "# Projet : le tableau des champions\n",
+    steps: [
+      {
+        task: "Crée une classe Joueur. À la création, elle reçoit nom, puis range self.nom et une liste vide self.scores.",
+        test: 'assert "Joueur" in globals(), "Il faut une classe appelée Joueur"\n_a = Joueur("A")\n_b = Joueur("B")\nassert _a.nom == "A", "self.nom doit contenir le nom donné"\nassert _a.scores == [], "self.scores doit être une liste vide au départ"\n_a.scores.append(1)\nassert _b.scores == [], "Chaque joueur doit avoir sa propre liste : crée-la dans __init__"',
+        must: [{ re: "def\\s+__init__\\s*\\(\\s*self", msg: "Crée la méthode __init__(self, nom)." }],
+        hint: "class Joueur:  def __init__(self, nom):  self.nom = nom  puis  self.scores = []",
+        solution: '# Projet : le tableau des champions\nclass Joueur:\n    def __init__(self, nom):\n        self.nom = nom\n        self.scores = []'
+      },
+      {
+        task: "Ajoute deux méthodes : ajouter(self, points) qui ajoute points à self.scores, et total(self) qui renvoie la somme des scores.",
+        test: '_j = Joueur("Test")\nassert hasattr(_j, "ajouter") and hasattr(_j, "total"), "Ajoute les méthodes ajouter et total"\n_j.ajouter(10)\n_j.ajouter(5)\nassert _j.scores == [10, 5], "ajouter doit ajouter les points à self.scores"\nassert _j.total() == 15, "total() doit renvoyer 15 après 10 et 5, pas " + repr(_j.total())\nassert Joueur("Vide").total() == 0, "total() d\'un joueur sans score doit valoir 0"',
+        hint: "def ajouter(self, points):  self.scores.append(points)   et   def total(self):  return sum(self.scores)",
+        solution: '# Projet : le tableau des champions\nclass Joueur:\n    def __init__(self, nom):\n        self.nom = nom\n        self.scores = []\n\n    def ajouter(self, points):\n        self.scores.append(points)\n\n    def total(self):\n        return sum(self.scores)'
+      },
+      {
+        task: "Crée Kai (scores 30 et 25) et Lea (scores 40 et 55), range-les dans une liste joueurs, trouve celui qui a le plus grand total et affiche : Champion : Lea (95 points)",
+        contains: ["Champion : Lea (95 points)"],
+        test: 'assert "joueurs" in globals() and len(joueurs) == 2, "joueurs doit contenir les 2 joueurs"\nassert sorted([j.total() for j in joueurs]) == [55, 95], "Kai doit avoir 55 points et Lea 95"',
+        must: [{ re: "\\bfor\\b|\\bmax\\s*\\(", msg: "Trouve le champion avec une boucle for (ou max)." }],
+        hint: "champion = joueurs[0]  puis  for j in joueurs:  if j.total() > champion.total():  champion = j",
+        solution: '# Projet : le tableau des champions\nclass Joueur:\n    def __init__(self, nom):\n        self.nom = nom\n        self.scores = []\n\n    def ajouter(self, points):\n        self.scores.append(points)\n\n    def total(self):\n        return sum(self.scores)\n\nkai = Joueur("Kai")\nkai.ajouter(30)\nkai.ajouter(25)\nlea = Joueur("Lea")\nlea.ajouter(40)\nlea.ajouter(55)\njoueurs = [kai, lea]\nchampion = joueurs[0]\nfor j in joueurs:\n    if j.total() > champion.total():\n        champion = j\nprint(f"Champion : {champion.nom} ({champion.total()} points)")'
+      }
+    ]
+  }
+];
+
+if (typeof module !== "undefined") module.exports = { PROJECTS };
+
 </script>
 <script>
 (function () {
@@ -3811,7 +4002,7 @@ var HEART_EMPTY = { r: "#4a4572", R: "#35315a", w: "#5d5888" };
 var KEY = "pixel-python-save-v1";
 function fresh() {
   return { xp: 0, coins: 50, hearts: 5, heartClock: null, done: {}, fails: {}, drafts: {}, hint: {}, sol: {},
-    streak: 0, lastDay: null, dailyDone: null, name: "", sound: true, courses: {} };
+    streak: 0, lastDay: null, dailyDone: null, name: "", sound: true, courses: {}, review: {}, proj: {}, pfails: {}, pos: null };
 }
 function load() {
   try { var raw = localStorage.getItem(KEY); if (raw) { var o = JSON.parse(raw); var f = fresh(); for (var k in o) f[k] = o[k]; return f; } } catch (e) {}
@@ -3950,7 +4141,7 @@ var busy = false;
 
 function hud(back) {
   regen();
-  var bk = back === true ? { act: "home", label: "Carte" } : (back || null);
+  var bk = back === true ? (FROM_WORLD ? { act: "world", label: "Monde" } : { act: "home", label: "Carte" }) : (back || null);
   var r = rankOf(S.xp), hearts = "";
   for (var i = 0; i < MAXH; i++) hearts += px("heart", 2.2, i < S.hearts ? null : HEART_EMPTY);
   var t = nextHeartIn();
@@ -4110,6 +4301,7 @@ function buildLogo3d() {
 
 /* ---------- Accueil ---------- */
 function renderHome() {
+  FROM_WORLD = false;
   view = { screen: "home", id: null };
   var r = rankOf(S.xp), dc = doneCount(), ci = currentIndex();
   var cur = ci >= 0 ? LEVELS[ci] : null;
@@ -4157,6 +4349,7 @@ function renderHome() {
         '<button class="node-btn" data-act="open" data-id="' + l.id + '"' + (isOpen ? "" : " disabled") + ' aria-label="Quête ' + l.id + " : " + esc(l.title) + (isDone ? ", réussie" : isOpen ? "" : ", verrouillée") + '">' + face + "</button>" +
         '<span class="node-label">' + esc(l.title) + "</span>" + (isCur ? '<span class="pyx">' + px("snake", 2.2) + "</span>" : "") + "</li>";
     }).join("");
+    var pj = projForWorld(w.id); if (pj) nodes += projNode(pj);
     if (w.id === 5) {
       var cu = certUnlocked();
       nodes += '<li class="node cert' + (cu ? " done" : " locked") + '" style="--x:0"><button class="node-btn" data-act="cert"' + (cu ? "" : " disabled") + ' aria-label="Certificat' + (cu ? "" : ", verrouillé") + '">' + (cu ? px("scroll", 5) : px("lock", 4)) + '</button><span class="node-label">Certificat</span></li>';
@@ -4168,10 +4361,10 @@ function renderHome() {
     '<main class="wrap">' +
     '<section class="hero"><div class="logo3d" id="logo3d" role="img" aria-label="Logo Pixel Python en 3D : une fenêtre de code dont le curseur est un serpent"></div>' +
     '<h1 class="logo">PIXEL PYTHON</h1><p class="tag">Apprends Python <b>comme un jeu.</b></p><p class="hint3d">Fais glisser le logo pour le tourner, touche-le pour l\'animer</p></section>' +
-    '<nav class="ranks" aria-label="Rangs">' + ranks + "</nav>" +
-    resume + coursesCard() + '<div class="duo">' + progress + daily + "</div>" +
+    exploreCard() + '<nav class="ranks" aria-label="Rangs">' + ranks + "</nav>" +
+    resume + coursesCard() + '<div class="duo">' + progress + daily + "</div>" + reviewCard() +
     '<section class="map"><div class="map-title"><h2>La carte</h2><span>' + dc + " / " + LEVELS.length + " quêtes</span></div>" + worlds + "</section>" +
-    '<div class="foot"><button class="btn btn-small btn-ghost" data-act="sound">Son : ' + (S.sound ? "activé" : "coupé") + '</button>' +
+    saveBoxHtml() + '<div class="foot"><button class="btn btn-small btn-ghost" data-act="sound">Son : ' + (S.sound ? "activé" : "coupé") + '</button>' +
     '<button class="btn btn-small btn-ghost" data-act="wipe" id="wipeBtn">Recommencer à zéro</button></div>' +
     '<p class="note">Une fois installée, l’app marche sans Internet. Ta progression est gardée sur cet appareil. Une vie revient toutes les 20 minutes.</p>' +
     "</main>";
@@ -4366,13 +4559,13 @@ function win(L, k, isDaily) {
     : '<p>Déjà réussie : pas de nouvelle récompense, mais ta mémoire, elle, progresse.</p>';
   var primary = boss ? '<button class="btn btn-gold" data-act="cert">' + px("scroll", 2.4) + "Certificat</button>"
     : next ? '<button class="btn btn-gold" data-act="open" data-id="' + next.id + '">Suivante ' + px("playk", 2.6) + "</button>"
-    : '<button class="btn btn-gold" data-act="home">Carte</button>';
+    : backBtn("btn-gold");
   var m = document.createElement("div");
   m.className = "modal"; m.id = "modal";
   m.innerHTML = '<div class="box win" role="dialog" aria-modal="true" aria-labelledby="winTitle">' + (boss ? px("dragon", 6) : px("chest", 6)) +
     '<div class="win-title" id="winTitle">' + title + "</div>" + lootHtml +
     (after > before ? '<p class="lvup">Niveau ' + after + " atteint</p>" : "") +
-    '<div class="actions"><button class="btn" data-act="home">Carte</button>' + primary + "</div></div>";
+    '<div class="actions">' + backBtn() + primary + "</div></div>";
   document.body.appendChild(m);
   refreshHud();
   var p = m.querySelector(".btn-gold"); if (p) p.focus();
@@ -4414,7 +4607,7 @@ function backFor(from) {
 }
 
 function renderCourses() {
-  view = { screen: "courses", id: null, back: BACKS.home };
+  view = { screen: "courses", id: null, back: FROM_WORLD ? { act: "world", label: "Monde" } : BACKS.home };
   var cd = coursesDoneCount(), rc = recommendedCourse();
   var groups = WORLDS.map(function (w) {
     var cs = COURSES.filter(function (c) { return c.world === w.id; });
@@ -4514,6 +4707,7 @@ function answerQuiz(b) {
   var all = true, score = 0;
   for (var z = 0; z < c.quiz.length; z++) { if (QZ.answers[z] == null) all = false; else if (QZ.answers[z] === c.quiz[z].answer) score++; }
   beep(oi === c.quiz[qi].answer ? SFX.coin : SFX.wrong);
+  if (oi !== c.quiz[qi].answer) { reviewAdd(c.id, qi); save(); }
   if (all) {
     var st = S.courses[c.id] || (S.courses[c.id] = {});
     st.best = Math.max(st.best || 0, score);
@@ -4561,6 +4755,798 @@ function openCourse(id, from) {
   window.scrollTo(0, 0);
 }
 
+/* ---------- Retour vers le monde ou l'accueil ---------- */
+var FROM_WORLD = false;
+function backBtn(cls) {
+  return '<button class="btn' + (cls ? " " + cls : "") + '" data-act="' + (FROM_WORLD ? "world" : "home") + '">' + (FROM_WORLD ? "Monde" : "Carte") + "</button>";
+}
+
+/* ---------- Mini-projets ---------- */
+function projIndex(id) { for (var i = 0; i < PROJECTS.length; i++) if (PROJECTS[i].id === id) return i; return -1; }
+function projForWorld(w) { for (var i = 0; i < PROJECTS.length; i++) if (PROJECTS[i].world === w) return PROJECTS[i]; return null; }
+function projState(p) { if (!S.proj[p.id]) S.proj[p.id] = { step: 0, done: false }; return S.proj[p.id]; }
+function projUnlocked(p) { return LEVELS.filter(function (l) { return l.world === p.world; }).every(function (l) { return !!S.done[l.id]; }); }
+function projDoneCount() { return PROJECTS.filter(function (p) { return S.proj[p.id] && S.proj[p.id].done; }).length; }
+function projNode(p) {
+  var open = projUnlocked(p), done = !!(S.proj[p.id] && S.proj[p.id].done);
+  return '<li class="node proj' + (done ? " done" : open ? "" : " locked") + '" style="--x:0"><button class="node-btn" data-act="project" data-id="' + p.id + '"' + (open ? "" : " disabled") +
+    ' aria-label="Projet : ' + esc(p.title) + (done ? ", terminé" : open ? "" : ", verrouillé") + '">' + (done ? px("star", 4) : open ? px("chest", 4) : px("lock", 3.4)) + "</button>" +
+    '<span class="node-label">Projet · ' + esc(p.title) + "</span></li>";
+}
+var KEYS = [["⇥", "    ", "Tabulation (4 espaces)"], [":", ":"], ["(", "("], [")", ")"], ['"', '"'], ["=", "="], ["[", "["], ["]", "]"], ["{", "{"], ["}", "}"], ["_", "_"], ["+", "+"], ["%", "%"], ["#", "#"]];
+function editorBlock(checkLabel) {
+  return '<div class="editor"><div class="gutter" id="gutter" aria-hidden="true">1</div>' +
+    '<textarea class="code-in" id="code" spellcheck="false" autocapitalize="off" autocomplete="off" autocorrect="off" wrap="off" aria-label="Ton code Python" placeholder="# Écris ton code ici"></textarea></div>' +
+    '<div class="keys" role="toolbar" aria-label="Touches utiles">' + KEYS.map(function (k) { return '<button class="key" data-key="' + esc(k[1]) + '" aria-label="' + esc(k[2] || k[0]) + '">' + esc(k[0]) + "</button>"; }).join("") + "</div>" +
+    '<div class="actions"><button class="btn btn-green" data-act="run" id="runBtn">' + px("playk", 3) + "Run</button>" +
+    (checkLabel ? '<button class="btn btn-gold" data-act="check" id="checkBtn">' + px("check", 3, { w: "#1d1936" }) + esc(checkLabel) + "</button>" : "<span></span>") + "</div>" +
+    '<div class="console">' + codeCard("Console", '<pre class="out" id="out"></pre>') + "</div>" +
+    '<div id="fb" hidden></div>';
+}
+function bindEditor(key, value) {
+  var ta = document.getElementById("code");
+  ta.value = value; syncEditor();
+  ta.addEventListener("input", function () { S.drafts[key] = ta.value; saveSoon(); syncEditor(); });
+  ta.addEventListener("keydown", onEditorKey);
+  refreshPyStatus();
+}
+function openProject(id, code, note) {
+  var i = projIndex(id); if (i < 0) return renderHome();
+  var p = PROJECTS[i];
+  if (!projUnlocked(p)) return FROM_WORLD ? renderWorld() : renderHome();
+  var st = projState(p), w = worldOf(p.world), key = "proj:" + p.id;
+  view = { screen: "project", id: id };
+  var draft = code != null ? code : (S.drafts[key] != null ? S.drafts[key] : p.starter);
+  var cur = Math.min(st.step, p.steps.length - 1), step = p.steps[cur];
+  var steps = p.steps.map(function (s, j) {
+    var cls = j < st.step ? "done" : (j === st.step && !st.done ? "cur" : "todo");
+    return '<li class="pstep ' + cls + '"><span class="pnum">' + (j < st.step ? px("check", 2, { w: "#1d1936" }) : j + 1) + "</span><span>" + esc(s.task.split("\n")[0]) + "</span></li>";
+  }).join("");
+  var body = st.done
+    ? '<div class="fb rule"><h4>' + px("star", 2.4) + " Projet terminé</h4><p>Ton code final est dans l'éditeur. Lance-le, modifie-le, ajoute tes propres idées.</p></div>"
+    : '<p class="task multi">' + inline(step.task) + "</p>";
+  app.innerHTML = hud(true) + '<main class="wrap">' +
+    '<section class="box lesson"><div class="eyebrow">Projet · Monde ' + p.world + " · " + esc(w.rank) + DOTS + "</div>" +
+    "<h2>" + esc(p.title) + "</h2><p>" + inline(p.intro) + '</p><ol class="psteps">' + steps + "</ol></section>" +
+    '<section class="box quest"><div class="eyebrow">' + (st.done ? "Bac à sable du projet" : "Étape " + (st.step + 1) + " / " + p.steps.length + " · +25 XP" + (st.step === p.steps.length - 1 ? " · +75 XP à la fin" : "")) + DOTS + "</div>" +
+    (note ? '<div class="fb rule"><h4>' + px("check", 2, { w: "#1d1936" }) + " " + esc(note) + "</h4></div>" : "") +
+    body + editorBlock(st.done ? null : "Valider") +
+    (st.done ? "" : '<div class="helps"><button class="btn btn-small" data-act="phint">Indice</button><button class="btn btn-small" data-act="psol" id="psolBtn"></button></div><div id="helpBox"></div>') +
+    "</section></main>";
+  bindEditor(key, draft);
+  refreshProjHelps();
+  window.scrollTo(0, 0);
+}
+function refreshProjHelps() {
+  var b = document.getElementById("psolBtn"); if (!b) return;
+  var p = PROJECTS[projIndex(view.id)], st = projState(p), n = S.pfails[p.id + ":" + st.step] || 0;
+  b.disabled = n < 2;
+  b.textContent = n < 2 ? "Solution après 2 essais" : "Voir la solution de l'étape";
+}
+function projCheck() {
+  if (busy) return;
+  var p = PROJECTS[projIndex(view.id)]; if (!p) return;
+  var st = projState(p); if (st.done) return;
+  var step = p.steps[st.step], ta = document.getElementById("code"), out = document.getElementById("out");
+  setBusy(true); clearFeedback(); syncEditor();
+  out.innerHTML = '<span class="dim">Le testeur vérifie ton code…</span>';
+  checkSolution(step, ta.value, runPy).then(function (res) {
+    setBusy(false);
+    showOutput(out, { out: res.out, err: null });
+    if (res.kind === "ok") {
+      st.step++; S.xp += 25; bumpStreak();
+      var finished = st.step >= p.steps.length;
+      if (finished) { st.done = Date.now(); S.xp += 75; S.coins += 20; }
+      save(); beep(SFX.win); refreshHud();
+      if (finished) { openProject(p.id, ta.value); projWin(p); }
+      else openProject(p.id, ta.value, "Étape " + st.step + " réussie : +25 XP");
+      return;
+    }
+    var fk = p.id + ":" + st.step;
+    S.pfails[fk] = (S.pfails[fk] || 0) + 1; save();
+    if (res.kind === "error") {
+      var m = res.error.title.match(/ligne (\d+)/); syncEditor(m ? +m[1] : null);
+      feedback("error", "Python a un souci", "<p><b>" + esc(res.error.title) + "</b> · " + esc(res.error.text) + "</p>");
+    } else if (res.kind === "rule") {
+      feedback("rule", "Presque", "<p>" + esc(res.msg) + "</p>");
+    } else {
+      var body = "<p>" + esc(res.msg) + "</p>";
+      if (res.expected != null) body += '<div class="cmp"><div><b>Attendu</b><pre>' + esc(res.expected) + "</pre></div><div><b>Ton résultat</b><pre>" + (esc(res.got) || "(rien)") + "</pre></div></div>";
+      feedback("wrong", "Pas encore", body);
+    }
+    beep(SFX.wrong);
+    refreshProjHelps();
+  });
+}
+function projWin(p) {
+  var m = document.createElement("div");
+  m.className = "modal"; m.id = "modal";
+  m.innerHTML = '<div class="box win" role="dialog" aria-modal="true" aria-labelledby="winTitle">' + px("chest", 6) +
+    '<div class="win-title" id="winTitle">Projet terminé</div>' +
+    '<ul class="loot"><li><span>' + px("star", 2.6) + "Expérience</span><span>+150 XP</span></li><li><span>" + px("coin", 2.6) + "Pièces</span><span>+20</span></li></ul>" +
+    "<p>Tu as construit « " + esc(p.title) + " » de A à Z.</p>" +
+    '<div class="actions">' + backBtn() + '<button class="btn btn-gold" data-act="closemodal">Voir mon code</button></div></div>';
+  document.body.appendChild(m);
+  var g = m.querySelector(".btn-gold"); if (g) g.focus();
+}
+
+/* ---------- Révisions espacées ---------- */
+function addDaysKey(n) { var d = new Date(); d.setDate(d.getDate() + n); return dayKey(d); }
+function reviewAdd(cid, qi) { S.review[cid + ":" + qi] = { box: 0, due: addDaysKey(1) }; }
+function reviewKeys(dueOnly) {
+  var t = dayKey(), out = [];
+  for (var k in S.review) {
+    if (courseIndex(k.split(":")[0]) < 0) continue;
+    if (!dueOnly || S.review[k].due <= t) out.push(k);
+  }
+  return out;
+}
+function reviewItem(k) { var parts = k.split(":"), c = COURSES[courseIndex(parts[0])], qi = +parts[1]; return { key: k, c: c, qi: qi, q: c.quiz[qi] }; }
+function reviewCard() {
+  var due = reviewKeys(true).length, all = reviewKeys(false).length;
+  var txt = due ? due + " question" + (due > 1 ? "s" : "") + " à revoir aujourd'hui"
+    : all ? "Rien pour aujourd'hui · " + all + " question" + (all > 1 ? "s reviendront" : " reviendra") + " bientôt"
+    : "Les questions de quiz que tu rates reviennent ici le lendemain, puis 3 et 7 jours après.";
+  return '<section class="box course-card"><div class="eyebrow">Révisions' + DOTS + "</div>" +
+    '<div class="crow"><span class="book alt">' + px("flame", 3.6) + '</span><div class="ctext"><h3>Fontaine de mémoire</h3><p class="sub">' + esc(txt) + "</p></div></div>" +
+    (due ? '<div class="btn-row"><button class="btn btn-gold" data-act="review">Réviser maintenant</button></div>' : "") + "</section>";
+}
+var RV = null;
+function renderReview() {
+  view = { screen: "review", id: null };
+  if (!RV) RV = { keys: reviewKeys(true).slice(0, 10), i: 0, ans: null, correct: 0, day: dayKey() };
+  var html;
+  if (!RV.keys.length) {
+    var all = reviewKeys(false).length;
+    html = '<section class="box lesson"><div class="eyebrow">Révisions' + DOTS + "</div><h2>Rien à réviser aujourd'hui</h2>" +
+      "<p>" + (all ? all + " question" + (all > 1 ? "s" : "") + " de quiz reviendr" + (all > 1 ? "ont" : "a") + " dans les prochains jours." : "Quand tu rates une question de quiz, elle revient ici le lendemain. Si tu réponds juste, elle revient 3 jours plus tard, puis 7 jours. Trois bonnes réponses et elle est maîtrisée.") + "</p>" +
+      '<div class="btn-row">' + backBtn("btn-gold") + "</div></section>";
+  } else if (RV.i >= RV.keys.length) {
+    html = '<section class="box lesson"><div class="eyebrow">Révisions' + DOTS + "</div><h2>Révision terminée</h2>" +
+      '<div class="qscore"><span class="big">' + RV.correct + " / " + RV.keys.length + "</span><p>+" + (RV.correct * 5) + " XP. Les questions ratées reviendront demain, les autres un peu plus tard.</p></div>" +
+      '<div class="btn-row">' + backBtn("btn-gold") + "</div></section>";
+  } else {
+    var it = reviewItem(RV.keys[RV.i]), q = it.q, answered = RV.ans != null, mono = q.out || q.err || q.mono;
+    var order = seededOrder(it.key + ":" + RV.day + ":" + RV.i, q.options.length);
+    var opts = order.map(function (oi, pos) {
+      var cls = "opt" + (answered && oi === q.answer ? " right" : "") + (answered && oi === RV.ans && RV.ans !== q.answer ? " picked" : "");
+      var body = mono ? "<pre>" + esc(q.options[oi]) + "</pre>" : "<span>" + inline(q.options[oi]) + "</span>";
+      return '<button class="' + cls + '" data-act="rva" data-o="' + oi + '"' + (answered ? " disabled" : "") + '><span class="k">' + String.fromCharCode(65 + pos) + "</span>" + body + "</button>";
+    }).join("");
+    html = '<section class="box quiz"><div class="eyebrow">Révision · ' + (RV.i + 1) + " / " + RV.keys.length + " · " + esc(it.c.title) + DOTS + "</div>" +
+      '<div class="qq"><p class="qq-h">' + inline(q.q) + "</p>" + (q.code ? codeCard("Code", '<pre class="code">' + hl(q.code) + "</pre>") : "") +
+      '<div class="opts' + (answered ? " answered" : "") + '">' + opts + "</div>" +
+      (answered ? '<div class="qexp ' + (RV.ans === q.answer ? "ok" : "ko") + '" tabindex="-1"><b>' + (RV.ans === q.answer ? "Bonne réponse. +5 XP" : "Pas tout à fait.") + "</b> " + inline(q.why) + "</div>" +
+        '<div class="btn-row"><button class="btn btn-gold" data-act="rvnext" id="rvNext">' + (RV.i + 1 < RV.keys.length ? "Question suivante" : "Terminer") + "</button>" +
+        '<button class="btn" data-act="course" data-id="' + it.c.id + '" data-from="list">Relire le cours</button></div>' : "") +
+      "</div></section>";
+  }
+  app.innerHTML = hud(true) + '<main class="wrap">' + html + "</main>";
+  var nx = document.getElementById("rvNext"); if (nx) nx.focus({ preventScroll: true });
+}
+function reviewAnswer(oi) {
+  if (!RV || RV.ans != null || RV.i >= RV.keys.length) return;
+  var it = reviewItem(RV.keys[RV.i]);
+  RV.ans = oi;
+  if (oi === it.q.answer) {
+    RV.correct++; S.xp += 5;
+    var r = S.review[it.key] || { box: 0 };
+    r.box++;
+    if (r.box >= 3) delete S.review[it.key];
+    else { r.due = addDaysKey(r.box === 1 ? 3 : 7); S.review[it.key] = r; }
+    beep(SFX.coin);
+  } else {
+    S.review[it.key] = { box: 0, due: addDaysKey(1) };
+    beep(SFX.wrong);
+  }
+  save(); refreshHud(); renderReview();
+}
+function reviewNext() {
+  if (!RV) return;
+  RV.i++; RV.ans = null;
+  if (RV.i >= RV.keys.length && RV.correct > 0) { bumpStreak(); save(); refreshHud(); }
+  renderReview(); window.scrollTo(0, 0);
+}
+
+/* ---------- Sauvegarde entre appareils ---------- */
+function exportCode() {
+  var o = {};
+  for (var k in S) if (k !== "drafts") o[k] = S[k];
+  return "PIXPY1." + btoa(unescape(encodeURIComponent(JSON.stringify(o))));
+}
+function importCode(txt) {
+  var m = String(txt || "").replace(/\s+/g, "").match(/^PIXPY1\.([A-Za-z0-9+/=]+)$/);
+  if (!m) return null;
+  try {
+    var o = JSON.parse(decodeURIComponent(escape(atob(m[1]))));
+    if (!o || typeof o !== "object" || typeof o.xp !== "number" || typeof o.done !== "object") return null;
+    return o;
+  } catch (e) { return null; }
+}
+function saveBoxHtml() {
+  return '<section class="box savebox" id="savebox"><div class="eyebrow">Sauvegarde' + DOTS + "</div>" +
+    "<p>Tu joues sur plusieurs appareils ? Copie ton code ici, puis colle-le dans Pixel Python sur ton autre appareil : tu retrouves ton niveau, tes quêtes et tes cours.</p>" +
+    '<div class="btn-row"><button class="btn btn-small" data-act="savecopy" id="saveCopy">Copier mon code</button><button class="btn btn-small" data-act="savepaste">Coller un code</button></div>' +
+    '<div id="saveArea"></div></section>';
+}
+function saveCopy(btn) {
+  var code = exportCode(), area = document.getElementById("saveArea");
+  area.innerHTML = '<label class="sub" for="saveText">Ton code de sauvegarde</label><textarea class="savetext" id="saveText" readonly rows="4">' + esc(code) + "</textarea>";
+  var ta = document.getElementById("saveText");
+  function manual() { ta.focus(); ta.select(); btn.textContent = "Sélectionne et copie le code"; }
+  try {
+    navigator.clipboard.writeText(code).then(function () { btn.textContent = "Code copié"; }, manual);
+  } catch (e) { manual(); }
+}
+function savePaste() {
+  var area = document.getElementById("saveArea");
+  area.innerHTML = '<label class="sub" for="saveText">Colle ici le code copié sur ton autre appareil (il commence par PIXPY1.)</label>' +
+    '<textarea class="savetext" id="saveText" rows="4" spellcheck="false" autocapitalize="off" autocorrect="off"></textarea>' +
+    '<div class="btn-row"><button class="btn btn-small btn-gold" data-act="saveload" id="saveLoad">Charger ce code</button></div><p class="sub" id="saveMsg"></p>';
+  document.getElementById("saveText").focus();
+}
+function saveLoad(btn) {
+  var o = importCode(document.getElementById("saveText").value), msg = document.getElementById("saveMsg");
+  if (!o) { msg.textContent = "Ce code n'est pas valide. Vérifie qu'il est complet et qu'il commence par PIXPY1."; return; }
+  arm("saveload", btn, "Remplacer ma progression ? Touche encore", function () {
+    var keep = S.drafts || {}, f = fresh();
+    for (var k in o) f[k] = o[k];
+    f.drafts = keep; S = f; save();
+    renderHome();
+    var a = document.getElementById("saveArea");
+    if (a) { a.innerHTML = '<p class="okmsg">Progression chargée : niveau ' + rankOf(S.xp).lvl + ", " + doneCount() + " quête" + (doneCount() > 1 ? "s" : "") + " réussie" + (doneCount() > 1 ? "s" : "") + ".</p>"; document.getElementById("savebox").scrollIntoView({ block: "center" }); }
+  });
+}
+
+/* ---------- Monde ouvert ---------- */
+var TS = 16, MW = 64, MH = 48;
+var WSTART = { x: 32, y: 43 };
+var POIS = [
+  { k: "quest", id: "1-1", x: 28, y: 40 }, { k: "quest", id: "1-2", x: 24, y: 37 }, { k: "quest", id: "1-3", x: 29, y: 34 }, { k: "quest", id: "1-4", x: 35, y: 33 },
+  { k: "library", id: "library", x: 38, y: 40 }, { k: "fountain", id: "fountain", x: 33, y: 38 }, { k: "board", id: "board", x: 36, y: 44 }, { k: "project", id: "p1", x: 40, y: 35 },
+  { k: "quest", id: "2-1", x: 19, y: 31 }, { k: "quest", id: "2-2", x: 14, y: 34 }, { k: "quest", id: "2-3", x: 8, y: 30 }, { k: "quest", id: "2-4", x: 11, y: 24 }, { k: "project", id: "p2", x: 5, y: 20 },
+  { k: "quest", id: "3-1", x: 15, y: 16 }, { k: "quest", id: "3-2", x: 20, y: 12 }, { k: "quest", id: "3-3", x: 13, y: 8 }, { k: "quest", id: "3-4", x: 22, y: 5 }, { k: "project", id: "p3", x: 8, y: 4 },
+  { k: "quest", id: "4-1", x: 38, y: 14 }, { k: "quest", id: "4-2", x: 44, y: 17 }, { k: "quest", id: "4-3", x: 50, y: 13 }, { k: "quest", id: "4-4", x: 45, y: 7 }, { k: "project", id: "p4", x: 56, y: 5 },
+  { k: "boss", id: "5-1", x: 56, y: 31 }, { k: "altar", id: "altar", x: 58, y: 38 }
+];
+var EDGES = [["start", "fountain"], ["fountain", "1-1"], ["1-1", "1-2"], ["1-2", "1-3"], ["1-3", "1-4"], ["1-4", "p1"], ["fountain", "library"], ["start", "board"],
+  ["1-2", "2-1"], ["2-1", "2-2"], ["2-2", "2-3"], ["2-3", "2-4"], ["2-4", "p2"],
+  ["2-4", "3-1"], ["3-1", "3-2"], ["3-2", "3-3"], ["3-3", "3-4"], ["3-4", "p3"],
+  ["3-4", "4-1"], ["1-4", "4-1"], ["4-1", "4-2"], ["4-2", "4-3"], ["4-3", "4-4"], ["4-4", "p4"],
+  ["4-3", "5-1"], ["p1", "5-1"], ["5-1", "altar"]];
+var RCENTER = [null, { x: 33, y: 38 }, { x: 10, y: 29 }, { x: 15, y: 9 }, { x: 47, y: 10 }, { x: 54, y: 34 }];
+var WC = {
+  G: ["#8fd06b", "#7fc25d", "#a6de84"], F: ["#4f9a5a", "#448a4f", "#62ad6b"], M: ["#a99a8a", "#988a7b", "#bcae9e"], S: ["#eeecfb", "#d9d5f2", "#ffffff"],
+  C: ["#b9b4c9", "#a39dbb", "#cdc8db"], A: ["#4a3f4f", "#3d3343", "#5a4e60"], D: ["#f2dc9b", "#e3c985", "#fbe9b5"],
+  W: ["#4a6fe0", "#3f62d0", "#8aa4f5"], L: ["#e8502e", "#c2322a", "#ffcc33"], P: ["#d9b77a", "#c39d5c", "#e8cb92"], Q: ["#cfcae2", "#aaa3c4", "#e4e0f4"],
+  O: ["#2b2433", "#1e1924", "#463c50"], B: ["#b07a43", "#7d5128", "#c99357"]
+};
+var TREE = ["......kkkk......", "....kklllgkk....", "...klllggggdk...", "..kllgggggggdk..", ".klggggggggggdk.", ".klgggggggggddk.", "kllggggggggggddk", "klgggggggggggddk", "kggggggggggggddk", ".kgggggggggdddk.", ".kdgggggggddddk.", "..kddddddddddk..", "...kkkkmmkkkk...", "......kmmk......", "......kmmk......", ".....kkkkkk....."];
+var PINE = [".......kk.......", "......klgk......", ".....klggdk.....", "......kggk......", ".....klggdk.....", "....klgggddk....", ".....kggggk.....", "....klggggdk....", "...klgggggddk...", "....kggggggk....", "...klggggggdk...", "..klgggggggddk..", "..kkkkkkkkkkkk..", ".......kmk......", ".......kmk......", "......kkkkk....."];
+var ROCK = ["................", "................", "................", ".....kkkkk......", "....knnnnNkk....", "...knnnNNNNNk...", "..knnNNNNNNNxk..", "..knNNNNNNNNxk..", ".knNNNNNNNNxxk..", ".kNNNNNNNNxxxk..", ".kNNNNNNNxxxxk..", "..kxxxxxxxxxk...", "...kkkkkkkkk....", "................", "................", "................"];
+var BUSH = ["................", "................", "................", "................", "................", ".....kkkkkk.....", "...kklllggkk....", "..klllggggggk...", "..kllggggggdk...", ".klggggggggddk..", ".kgggggggggddk..", ".kdggggggggddk..", "..kkddddddddk...", "....kkkkkkkk....", "................", "................"];
+var BLOCK = ["....kkkkkkkk....", "....ksssssSk....", "....kkkkkkkk....", ".....kssSSk.....", ".....ksyySk.....", ".....ksyySk.....", ".....ksyySk.....", ".....ksyySk.....", ".....ksSSSk.....", ".....ksSSxk.....", ".....ksSSxk.....", ".....ksSSxk.....", "....kkkkkkkk....", "....ksSSSSxk....", "....kkkkkkkk....", "................"];
+var HEAD = ["...kkkkk....", ".kkglllgkk..", "kgllggggwwk.", "kgggggggwkgk", "kggggggggggk", "kggggggggggk", "kgggggggwkgk", "kdggggggwwk.", ".kkddddgkk..", "...kkkkk...."];
+function hh(x, y, s) {
+  var n = (Math.imul(x, 374761393) + Math.imul(y, 668265263) + Math.imul(s || 0, 1442695041)) | 0;
+  n = Math.imul(n ^ (n >>> 13), 1274126177); n = n ^ (n >>> 16);
+  return (n >>> 0) / 4294967296;
+}
+function vnoise(x, y, cell, s) {
+  var gx = Math.floor(x / cell), gy = Math.floor(y / cell), fx = x / cell - gx, fy = y / cell - gy;
+  var a = hh(gx, gy, s), b = hh(gx + 1, gy, s), c = hh(gx, gy + 1, s), d = hh(gx + 1, gy + 1, s);
+  var u = fx * fx * (3 - 2 * fx), v = fy * fy * (3 - 2 * fy);
+  return a + (b - a) * u + (c - a) * v + (a - b - c + d) * u * v;
+}
+function mkSprite(rows, pal) {
+  var c = document.createElement("canvas"); c.width = rows[0].length; c.height = rows.length;
+  var g = c.getContext("2d");
+  rows.forEach(function (row, y) { for (var x = 0; x < row.length; x++) { var col = pal[row[x]]; if (col) { g.fillStyle = col; g.fillRect(x, y, 1, 1); } } });
+  return c;
+}
+function sprFrom(name, swap) {
+  var rows = SPR[name].split("|"), pal = {};
+  for (var k in PAL) pal[k] = PAL[k];
+  if (swap) for (var j in swap) pal[j] = swap[j];
+  return mkSprite(rows, pal);
+}
+function logoCanvas(gray) {
+  var c = document.createElement("canvas"); c.width = 32; c.height = 32;
+  var g = c.getContext("2d");
+  LOGO.forEach(function (row, y) {
+    for (var x = 0; x < row.length; x++) {
+      var ch = row[x]; if (ch === ".") continue;
+      var col = LOGO_COL[ch];
+      if (gray) { var n = parseInt(col.slice(1), 16), r = n >> 16, gg = (n >> 8) & 255, b = n & 255, l = Math.round((r * 0.3 + gg * 0.59 + b * 0.11) * 0.75 + 40); col = "rgb(" + l + "," + l + "," + (l + 12) + ")"; }
+      g.fillStyle = col; g.fillRect(x, y, 1, 1);
+    }
+  });
+  return c;
+}
+function buildWorld() {
+  var G = [], O = [], R = [], PATH = [], x, y;
+  for (y = 0; y < MH; y++) { G.push([]); O.push([]); R.push([]); PATH.push([]); for (x = 0; x < MW; x++) { G[y].push("G"); O[y].push(""); R[y].push(1); PATH[y].push(false); } }
+  // régions (Voronoï bruité)
+  for (y = 0; y < MH; y++) for (x = 0; x < MW; x++) {
+    var best = 1, bd = 1e9;
+    for (var r = 1; r <= 5; r++) { var c = RCENTER[r], d = Math.hypot(x - c.x, y - c.y) + (vnoise(x, y, 5, r) - 0.5) * 7; if (d < bd) { bd = d; best = r; } }
+    R[y][x] = best;
+    var gr = best === 1 ? "G" : best === 2 ? "F" : best === 3 ? (y < 6 + vnoise(x, y, 4, 9) * 3 ? "S" : "M") : best === 4 ? "C" : "A";
+    if (best === 5 && vnoise(x, y, 3, 11) > 0.64) gr = "L";
+    G[y][x] = gr;
+  }
+  // rivière et lac
+  for (y = 2; y <= 28; y++) { var rx = 30 + Math.round(1.5 * Math.sin(y / 3.5)); G[y][rx] = "W"; G[y][rx + 1] = "W"; }
+  for (y = 26; y <= 32; y++) for (x = 26; x <= 36; x++) if (((x - 31) * (x - 31)) / 16 + ((y - 29) * (y - 29)) / 4 <= 1) G[y][x] = "W";
+  // océan et plage
+  for (y = 0; y < MH; y++) for (x = 0; x < MW; x++) {
+    var edge = Math.min(x, y, MW - 1 - x, MH - 1 - y);
+    if (edge < 2) G[y][x] = "W"; else if (edge === 2 && G[y][x] !== "W") G[y][x] = "D";
+  }
+  // décor
+  for (y = 0; y < MH; y++) for (x = 0; x < MW; x++) {
+    var g0 = G[y][x], h = hh(x, y, 3), o = "";
+    if (g0 === "G") o = h < 0.05 ? "T" : h < 0.08 ? "U" : h < 0.17 ? "f" : "";
+    else if (g0 === "F") o = h < 0.4 ? "T" : h < 0.52 ? "Y" : h < 0.56 ? "U" : "";
+    else if (g0 === "M" || g0 === "S") o = h < 0.17 ? "R" : h < 0.27 ? "Y" : "";
+    else if (g0 === "C") o = h < 0.07 ? "K" : "";
+    else if (g0 === "A") o = h < 0.06 ? "R" : "";
+    O[y][x] = o;
+  }
+  // chemins
+  var pos = { start: WSTART };
+  POIS.forEach(function (p) { pos[p.id] = p; });
+  function mark(x0, y0) { if (x0 > 1 && y0 > 1 && x0 < MW - 2 && y0 < MH - 2) PATH[y0][x0] = true; }
+  EDGES.forEach(function (e) {
+    var a = pos[e[0]], b = pos[e[1]], i;
+    for (i = Math.min(a.x, b.x); i <= Math.max(a.x, b.x); i++) mark(i, a.y);
+    for (i = Math.min(a.y, b.y); i <= Math.max(a.y, b.y); i++) mark(b.x, i);
+  });
+  function clear(cx, cy, rad, keepWater) {
+    for (var yy = cy - rad; yy <= cy + rad; yy++) for (var xx = cx - rad; xx <= cx + rad; xx++) {
+      if (xx < 2 || yy < 2 || xx > MW - 3 || yy > MH - 3) continue;
+      O[yy][xx] = O[yy][xx] === "f" ? "f" : "";
+      if (G[yy][xx] === "L") G[yy][xx] = "A";
+      if (!keepWater && G[yy][xx] === "W") G[yy][xx] = "D";
+    }
+  }
+  for (y = 0; y < MH; y++) for (x = 0; x < MW; x++) if (PATH[y][x]) {
+    clear(x, y, 1, true);
+    if (G[y][x] === "W") G[y][x] = "B";
+    else { var rg = R[y][x]; G[y][x] = rg <= 2 ? "P" : rg <= 4 ? "Q" : "O"; }
+  }
+  POIS.forEach(function (p) { clear(p.x, p.y, 1, false); O[p.y][p.x] = ""; if (!PATH[p.y][p.x] && (G[p.y][p.x] === "W" || G[p.y][p.x] === "L")) G[p.y][p.x] = "D"; });
+  clear(WSTART.x, WSTART.y, 2, false);
+  var poiAt = {};
+  POIS.forEach(function (p) { poiAt[p.x + "," + p.y] = p; });
+  var W = { G: G, O: O, R: R, PATH: PATH, poiAt: poiAt };
+  W.terrain = renderTerrain(W);
+  W.spr = {
+    logo: logoCanvas(false), logoGray: logoCanvas(true), star: sprFrom("star"), chest: sprFrom("chest"), lock: sprFrom("lock"), scroll: sprFrom("scroll"),
+    scrollGray: sprFrom("scroll", { c: "#c9c4dd", r: "#8f89a8", n: "#8f89a8" }), dragon: sprFrom("dragon"), book: sprFrom("book"), head: mkSprite(HEAD, { k: "#1d1936", g: "#58c14a", l: "#a8ec7a", d: "#2f8a2b", w: "#ffffff" })
+  };
+  return W;
+}
+function walkable(W, x, y) {
+  if (x < 0 || y < 0 || x >= MW || y >= MH) return false;
+  var g = W.G[y][x], o = W.O[y][x];
+  if (g === "W" || g === "L") return false;
+  if (o && o !== "f") return false;
+  if (W.poiAt[x + "," + y]) return false;
+  return true;
+}
+function renderTerrain(W) {
+  var c = document.createElement("canvas"); c.width = MW * TS; c.height = MH * TS;
+  var g = c.getContext("2d"), x, y;
+  var PATHS = { P: 1, Q: 1, O: 1, B: 1 };
+  function isPath(xx, yy) { return xx >= 0 && yy >= 0 && xx < MW && yy < MH && PATHS[W.G[yy][xx]] === 1; }
+  function isWater(xx, yy) { return xx < 0 || yy < 0 || xx >= MW || yy >= MH || W.G[yy][xx] === "W"; }
+  for (y = 0; y < MH; y++) for (x = 0; x < MW; x++) {
+    var t = W.G[y][x], col = WC[t], px0 = x * TS, py0 = y * TS, i;
+    g.fillStyle = col[0]; g.fillRect(px0, py0, TS, TS);
+    if (t === "B") {
+      var vert = isWater(x - 1, y) && isWater(x + 1, y);
+      g.fillStyle = col[1];
+      for (i = 0; i < 4; i++) { if (vert) g.fillRect(px0, py0 + i * 4 + 3, TS, 1); else g.fillRect(px0 + i * 4 + 3, py0, 1, TS); }
+      g.fillStyle = "#5a3418";
+      if (vert) { g.fillRect(px0, py0, 2, TS); g.fillRect(px0 + 14, py0, 2, TS); } else { g.fillRect(px0, py0, TS, 2); g.fillRect(px0, py0 + 14, TS, 2); }
+      continue;
+    }
+    for (i = 0; i < 6; i++) {
+      var hx = Math.floor(hh(x, y, i + 20) * 15), hy = Math.floor(hh(x, y, i + 40) * 15);
+      g.fillStyle = col[(i % 2) + 1]; g.fillRect(px0 + hx, py0 + hy, i < 2 ? 2 : 1, 1);
+    }
+    if (t === "W") {
+      g.fillStyle = col[2];
+      g.fillRect(px0 + Math.floor(hh(x, y, 5) * 10), py0 + 4 + Math.floor(hh(x, y, 6) * 8), 4, 1);
+      if (!isWater(x, y - 1)) { g.fillStyle = "#d7e2ff"; g.fillRect(px0, py0, TS, 1); }
+      if (!isWater(x - 1, y)) { g.fillStyle = "#b9caff"; g.fillRect(px0, py0, 1, TS); }
+      if (!isWater(x + 1, y)) { g.fillStyle = "#b9caff"; g.fillRect(px0 + 15, py0, 1, TS); }
+    } else if (t === "G" && hh(x, y, 7) < 0.5) {
+      var tx0 = px0 + 2 + Math.floor(hh(x, y, 8) * 10), ty0 = py0 + 3 + Math.floor(hh(x, y, 9) * 9);
+      g.fillStyle = "#5fa845"; g.fillRect(tx0, ty0, 1, 2); g.fillRect(tx0 + 2, ty0, 1, 2); g.fillRect(tx0 + 1, ty0 + 1, 1, 2);
+    } else if (t === "C") {
+      g.fillStyle = col[1]; g.fillRect(px0, py0 + 7, TS, 1);
+      g.fillRect(px0 + (y % 2 ? 4 : 11), py0, 1, 7); g.fillRect(px0 + (y % 2 ? 11 : 4), py0 + 8, 1, 8);
+    } else if (t === "L") {
+      g.fillStyle = col[1]; g.fillRect(px0 + 2, py0 + 3, 5, 2); g.fillRect(px0 + 9, py0 + 10, 4, 2);
+      g.fillStyle = col[2]; g.fillRect(px0 + 4 + Math.floor(hh(x, y, 4) * 8), py0 + 6, 2, 2);
+    }
+    if (PATHS[t]) {
+      g.fillStyle = col[1];
+      if (!isPath(x - 1, y)) g.fillRect(px0, py0, 1, TS);
+      if (!isPath(x + 1, y)) g.fillRect(px0 + 15, py0, 1, TS);
+      if (!isPath(x, y - 1)) g.fillRect(px0, py0, TS, 1);
+      if (!isPath(x, y + 1)) g.fillRect(px0, py0 + 15, TS, 1);
+    }
+  }
+  var sp = {
+    T: mkSprite(TREE, { k: "#1d1936", g: "#3f9a3a", l: "#6fcf5a", d: "#2a6e2a", m: "#6b3a1c" }),
+    Y: mkSprite(PINE, { k: "#1d1936", g: "#2d7a52", l: "#47a070", d: "#1f5a3c", m: "#6b3a1c" }),
+    R: mkSprite(ROCK, { k: "#1d1936", n: "#a8a3c4", N: "#6c6790", x: "#4a4572" }),
+    U: mkSprite(BUSH, { k: "#1d1936", g: "#4fae45", l: "#8fdc6a", d: "#2f8a2b" }),
+    K: mkSprite(BLOCK, { k: "#1d1936", s: "#dedaf0", S: "#b9b4c9", x: "#8f89a8", y: "#ec3f55" })
+  };
+  var FLOW = ["#ec3f55", "#ffcc33", "#ffffff", "#b7b0ea"];
+  for (y = 0; y < MH; y++) for (x = 0; x < MW; x++) {
+    var o = W.O[y][x];
+    if (!o) continue;
+    if (o === "f") {
+      var fx = x * TS + 3 + Math.floor(hh(x, y, 12) * 9), fy = y * TS + 4 + Math.floor(hh(x, y, 13) * 8);
+      g.fillStyle = "#3f8a2b"; g.fillRect(fx + 1, fy + 2, 1, 2);
+      g.fillStyle = FLOW[Math.floor(hh(x, y, 14) * 4)]; g.fillRect(fx, fy, 3, 2);
+      g.fillStyle = "#ffcc33"; g.fillRect(fx + 1, fy, 1, 1);
+      continue;
+    }
+    if (sp[o]) g.drawImage(sp[o], x * TS, y * TS);
+  }
+  return c;
+}
+
+var WG = null;
+var WV = { x: 0, y: 0, dir: 1, trail: [], path: null, goalPoi: null, keys: {}, pad: null, active: null, region: 0, last: 0, saved: 0, moved: false, running: false, cv: null, ctx: null, s: 2, dpr: 1, camX: 0, camY: 0, mark: null };
+function snakeLen() { return 3 + Math.min(doneCount() + projDoneCount() * 2, 22); }
+function poiInfo(p) {
+  if (p.k === "quest" || p.k === "boss") {
+    var i = levelIndex(p.id), L = LEVELS[i], open = unlocked(i), done = !!S.done[p.id];
+    return { title: (L.boss ? "Boss · " : "Quête " + p.id + " · ") + L.title, sub: done ? "Réussie · tu peux la rejouer" : open ? "+" + L.xp + " XP" : "Termine d'abord la quête " + LEVELS[i - 1].id, can: open, label: done ? "Rejouer" : "Jouer" };
+  }
+  if (p.k === "library") return { title: "Bibliothèque", sub: coursesDoneCount() + " / " + COURSES.length + " cours terminés", can: true, label: "Entrer" };
+  if (p.k === "fountain") { var due = reviewKeys(true).length; return { title: "Fontaine de mémoire", sub: due ? due + " question" + (due > 1 ? "s" : "") + " à réviser" : "Rien à réviser aujourd'hui", can: true, label: "Réviser" }; }
+  if (p.k === "board") { var dq = dailyQuest(), dd = S.dailyDone === dayKey(); return { title: "Quête du jour · " + dq.title, sub: dd ? "Réussie aujourd'hui · reviens demain" : "+60 XP · +25 pièces", can: true, label: dd ? "Rejouer" : "Lire" }; }
+  if (p.k === "project") {
+    var pj = PROJECTS[projIndex(p.id)], po = projUnlocked(pj), st = S.proj[pj.id] || { step: 0, done: false };
+    return { title: "Projet · " + pj.title, sub: st.done ? "Terminé · ton code t'attend" : po ? "Étape " + (st.step + 1) + " / " + pj.steps.length + " · +150 XP" : "Termine les 4 quêtes du monde " + pj.world, can: po, label: st.done ? "Revoir" : "Construire" };
+  }
+  if (p.k === "altar") return { title: "Autel du certificat", sub: certUnlocked() ? "Ton certificat t'attend" : "Bats le dragon pour le débloquer", can: certUnlocked(), label: "Voir" };
+  return { title: "", sub: "", can: false, label: "" };
+}
+function poiEnter(p) {
+  var info = poiInfo(p); if (!info.can) return;
+  worldSavePos(); FROM_WORLD = true;
+  if (p.k === "quest" || p.k === "boss") openLevel(p.id);
+  else if (p.k === "library") renderCourses();
+  else if (p.k === "fountain") { RV = null; renderReview(); }
+  else if (p.k === "board") openLevel("daily");
+  else if (p.k === "project") openProject(p.id);
+  else if (p.k === "altar") renderCert();
+}
+function worldSavePos() { if (WV.cv) { S.pos = { x: Math.round(WV.x), y: Math.round(WV.y) }; save(); } }
+function renderWorld() {
+  FROM_WORLD = true;
+  closeModal();
+  view = { screen: "world", id: null, back: { act: "home", label: "Accueil" } };
+  var d = function (dx, dy, lab, cls) { return '<button class="dbtn ' + cls + '" data-dx="' + dx + '" data-dy="' + dy + '" aria-label="' + lab + '">' + px("play", 2.6, { k: "#f5f3ff", w: "#f5f3ff" }) + "</button>"; };
+  app.innerHTML = hud(view.back) + '<main class="stage" id="stage">' +
+    '<canvas id="wcv" role="img" aria-label="Carte du monde : touche un endroit pour y aller"></canvas>' +
+    '<div class="wtoast" id="wtoast" hidden></div>' +
+    (WV.moved ? "" : '<div class="whelp" id="whelp">Touche la carte pour te déplacer · flèches ou ZQSD sur ordinateur</div>') +
+    '<div class="dpad" id="dpad">' + d(0, -1, "Haut", "up") + d(-1, 0, "Gauche", "left") + d(1, 0, "Droite", "right") + d(0, 1, "Bas", "down") + "</div>" +
+    '<div class="wpanel" id="wpanel" hidden><div class="wp-tx"><b id="wpTitle"></b><span id="wpSub"></span></div><button class="btn btn-gold btn-small" data-act="wenter" id="wpBtn">Entrer</button></div>' +
+    "</main>";
+  if (!WG) WG = buildWorld();
+  var hudEl = document.getElementById("hud");
+  document.getElementById("stage").style.top = Math.round(hudEl.getBoundingClientRect().bottom) + "px";
+  var pos = S.pos && walkable(WG, Math.floor(S.pos.x / TS), Math.floor(S.pos.y / TS)) ? S.pos : { x: WSTART.x * TS + 8, y: WSTART.y * TS + 8 };
+  if (!WV.cv || WV.trail.length === 0 || Math.hypot(WV.x - pos.x, WV.y - pos.y) > 1) {
+    WV.x = pos.x; WV.y = pos.y; WV.trail = [];
+    for (var i = 0; i < 40; i++) WV.trail.push({ x: pos.x, y: pos.y });
+  }
+  WV.path = null; WV.goalPoi = null; WV.active = null; WV.region = 0; WV.mark = null; WV.pad = null; WV.keys = {};
+  WV.cv = document.getElementById("wcv"); WV.ctx = WV.cv.getContext("2d");
+  worldResize();
+  bindWorldInput();
+  if (!WV.running) { WV.running = true; WV.last = 0; requestAnimationFrame(worldFrame); }
+}
+function worldResize() {
+  if (!WV.cv) return;
+  var st = document.getElementById("stage"); if (!st) return;
+  var w = st.clientWidth, h = st.clientHeight, dpr = Math.min(window.devicePixelRatio || 1, 3);
+  WV.dpr = dpr;
+  WV.cv.width = Math.round(w * dpr); WV.cv.height = Math.round(h * dpr);
+  var css = Math.max(2, Math.min(4, Math.round(Math.min(w, h) / 240)));
+  WV.s = Math.max(1, Math.round(css * dpr));
+}
+function bindWorldInput() {
+  var cv = WV.cv;
+  cv.addEventListener("pointerdown", function (e) {
+    var r = cv.getBoundingClientRect();
+    var wx = WV.camX + (e.clientX - r.left) * WV.dpr / WV.s, wy = WV.camY + (e.clientY - r.top) * WV.dpr / WV.s;
+    worldGoTo(Math.floor(wx / TS), Math.floor(wy / TS));
+  });
+  var pad = document.getElementById("dpad");
+  pad.querySelectorAll(".dbtn").forEach(function (b) {
+    var dx = +b.getAttribute("data-dx"), dy = +b.getAttribute("data-dy");
+    b.addEventListener("pointerdown", function (e) { e.preventDefault(); WV.pad = { x: dx, y: dy }; try { b.setPointerCapture(e.pointerId); } catch (er) {} });
+    ["pointerup", "pointercancel", "lostpointercapture"].forEach(function (ev) { b.addEventListener(ev, function () { if (WV.pad && WV.pad.x === dx && WV.pad.y === dy) WV.pad = null; }); });
+  });
+}
+document.addEventListener("keydown", function (e) {
+  if (view.screen !== "world" || document.getElementById("modal")) return;
+  var k = e.key.length === 1 ? e.key.toLowerCase() : e.key;
+  if (["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight", "z", "q", "s", "d", "w", "a"].indexOf(k) >= 0) { WV.keys[k] = true; e.preventDefault(); }
+  else if ((k === "Enter" || k === " ") && WV.active) { e.preventDefault(); poiEnter(WV.active); }
+  else if (k === "Escape") { worldSavePos(); renderHome(); }
+});
+document.addEventListener("keyup", function (e) { var k = e.key.length === 1 ? e.key.toLowerCase() : e.key; WV.keys[k] = false; });
+window.addEventListener("resize", function () {
+  if (view.screen !== "world") return;
+  var hudEl = document.getElementById("hud"), st = document.getElementById("stage");
+  if (hudEl && st) st.style.top = Math.round(hudEl.getBoundingClientRect().bottom) + "px";
+  worldResize();
+});
+function bfs(sx, sy, goal) {
+  var prev = {}, q = [[sx, sy]], seen = {}, k0 = sx + "," + sy;
+  seen[k0] = true;
+  var D = [[1, 0], [-1, 0], [0, 1], [0, -1]];
+  while (q.length) {
+    var c = q.shift();
+    if (goal(c[0], c[1])) {
+      var out = [], key = c[0] + "," + c[1];
+      while (key !== k0) { var p = key.split(","); out.unshift({ x: +p[0], y: +p[1] }); key = prev[key]; }
+      return out;
+    }
+    for (var i = 0; i < 4; i++) {
+      var nx = c[0] + D[i][0], ny = c[1] + D[i][1], nk = nx + "," + ny;
+      if (seen[nk] || !walkable(WG, nx, ny)) continue;
+      seen[nk] = true; prev[nk] = c[0] + "," + c[1]; q.push([nx, ny]);
+    }
+  }
+  return null;
+}
+function worldGoTo(tx, ty) {
+  var sx = Math.floor(WV.x / TS), sy = Math.floor(WV.y / TS), poi = WG.poiAt[tx + "," + ty] || null, path;
+  if (poi) path = bfs(sx, sy, function (x, y) { return Math.abs(x - tx) + Math.abs(y - ty) === 1; });
+  else if (walkable(WG, tx, ty)) path = bfs(sx, sy, function (x, y) { return x === tx && y === ty; });
+  else path = bfs(sx, sy, function (x, y) { return Math.abs(x - tx) <= 1 && Math.abs(y - ty) <= 1; });
+  if (!path) return;
+  WV.path = path; WV.goalPoi = poi;
+  var last = path.length ? path[path.length - 1] : { x: sx, y: sy };
+  WV.mark = { x: last.x, y: last.y, t: performance.now() };
+}
+function canStand(x, y) {
+  var pts = [[-4, -4], [4, -4], [-4, 4], [4, 4]];
+  for (var i = 0; i < 4; i++) if (!walkable(WG, Math.floor((x + pts[i][0]) / TS), Math.floor((y + pts[i][1]) / TS))) return false;
+  return true;
+}
+function worldUpdate(dt) {
+  var k = WV.keys, ix = 0, iy = 0;
+  if (k.ArrowLeft || k.q || k.a) ix -= 1;
+  if (k.ArrowRight || k.d) ix += 1;
+  if (k.ArrowUp || k.z || k.w) iy -= 1;
+  if (k.ArrowDown || k.s) iy += 1;
+  if (WV.pad) { ix += WV.pad.x; iy += WV.pad.y; }
+  var sp = 92 * dt, mx = 0, my = 0;
+  if (ix || iy) {
+    WV.path = null; WV.goalPoi = null; WV.mark = null;
+    var l = Math.hypot(ix, iy); mx = ix / l * sp; my = iy / l * sp;
+  } else if (WV.path) {
+    if (!WV.path.length) { WV.path = null; }
+    else {
+      var n = WV.path[0], tx = n.x * TS + 8, ty = n.y * TS + 8, dx = tx - WV.x, dy = ty - WV.y, d = Math.hypot(dx, dy);
+      if (d <= sp) { mx = dx; my = dy; WV.path.shift(); if (!WV.path.length) { WV.path = null; WV.mark = null; } }
+      else { mx = dx / d * sp; my = dy / d * sp; }
+    }
+  }
+  if (mx || my) {
+    var following = !!WV.path || (!ix && !iy);
+    if (following || canStand(WV.x + mx, WV.y)) WV.x += mx;
+    if (following || canStand(WV.x, WV.y + my)) WV.y += my;
+    if (Math.abs(mx) > Math.abs(my)) WV.dir = mx > 0 ? 0 : 2; else WV.dir = my > 0 ? 1 : 3;
+    var lt = WV.trail[WV.trail.length - 1];
+    var dd = Math.hypot(WV.x - lt.x, WV.y - lt.y);
+    if (dd >= 1) {
+      var steps = Math.floor(dd);
+      for (var i = 1; i <= steps; i++) WV.trail.push({ x: lt.x + (WV.x - lt.x) * i / steps, y: lt.y + (WV.y - lt.y) * i / steps });
+      if (WV.trail.length > 600) WV.trail.splice(0, WV.trail.length - 600);
+    }
+    if (!WV.moved) { WV.moved = true; var hp = document.getElementById("whelp"); if (hp) hp.remove(); }
+    if (performance.now() - WV.saved > 2500) { WV.saved = performance.now(); S.pos = { x: Math.round(WV.x), y: Math.round(WV.y) }; saveSoon(); }
+  }
+  // région
+  var tx0 = Math.floor(WV.x / TS), ty0 = Math.floor(WV.y / TS), reg = WG.R[ty0] ? WG.R[ty0][tx0] : 1;
+  if (reg !== WV.region) {
+    var first = WV.region === 0; WV.region = reg;
+    var wd = WORLDS[reg - 1], to = document.getElementById("wtoast");
+    if (to) {
+      to.innerHTML = '<span>Monde ' + wd.id + " · " + esc(wd.rank) + "</span><b>" + esc(wd.name) + "</b>";
+      to.hidden = false; clearTimeout(WV.toastT);
+      WV.toastT = setTimeout(function () { var t2 = document.getElementById("wtoast"); if (t2) t2.hidden = true; }, first ? 2600 : 2200);
+    }
+  }
+  // lieu proche
+  var best = null, bd = 26;
+  for (var j = 0; j < POIS.length; j++) {
+    var p = POIS[j], dist = Math.hypot(p.x * TS + 8 - WV.x, p.y * TS + 8 - WV.y);
+    if (dist < bd) { bd = dist; best = p; }
+  }
+  if (best !== WV.active) {
+    WV.active = best;
+    var pn = document.getElementById("wpanel");
+    if (pn) {
+      if (!best) pn.hidden = true;
+      else {
+        var info = poiInfo(best);
+        document.getElementById("wpTitle").textContent = info.title;
+        document.getElementById("wpSub").textContent = info.sub;
+        var bt = document.getElementById("wpBtn"); bt.textContent = info.can ? info.label : "Verrouillé"; bt.disabled = !info.can;
+        pn.hidden = false;
+      }
+    }
+  }
+}
+function worldFrame(ts) {
+  if (!WV.cv || !document.body.contains(WV.cv)) { WV.running = false; return; }
+  var dt = WV.last ? Math.min(0.05, (ts - WV.last) / 1000) : 0; WV.last = ts;
+  worldUpdate(dt);
+  worldDraw(ts / 1000);
+  requestAnimationFrame(worldFrame);
+}
+function drawPOI(g, p, t) {
+  var cx = p.x * TS + 8, by = p.y * TS + 15, sp = WG.spr;
+  g.fillStyle = "rgba(29,25,54,.28)"; g.fillRect(cx - 7, by - 1, 14, 2);
+  if (p.k === "quest") {
+    var i = levelIndex(p.id), open = unlocked(i), done = !!S.done[p.id];
+    g.fillStyle = "#59547f"; g.fillRect(cx - 6, by - 3, 12, 3); g.fillStyle = "#8f89a8"; g.fillRect(cx - 5, by - 3, 10, 1);
+    g.drawImage(open ? sp.logo : sp.logoGray, cx - 8, by - 19, 16, 16);
+    if (done) g.drawImage(sp.star, cx + 2, by - 24);
+    else if (!open) g.drawImage(sp.lock, cx - 4, by - 13);
+  } else if (p.k === "boss") {
+    var bdone = !!S.done["5-1"], bopen = unlocked(levelIndex("5-1"));
+    g.fillStyle = "#1d1936"; g.fillRect(cx - 12, by - 12, 24, 12); g.fillRect(cx - 10, by - 15, 20, 3);
+    g.fillStyle = "#3b3140"; g.fillRect(cx - 11, by - 11, 22, 11); g.fillRect(cx - 9, by - 14, 18, 3);
+    g.fillStyle = "#120e18"; g.fillRect(cx - 5, by - 9, 10, 9);
+    if (!bdone) {
+      var blink = Math.floor(t * 1.3) % 4 === 0;
+      g.fillStyle = bopen ? "#ec3f55" : "#6c6790"; if (!blink) { g.fillRect(cx - 3, by - 6, 2, 1); g.fillRect(cx + 1, by - 6, 2, 1); }
+      g.drawImage(sp.dragon, cx - 8, by - 26 + Math.round(Math.sin(t * 2) * 1));
+    } else g.drawImage(sp.star, cx - 4, by - 26);
+  } else if (p.k === "library") {
+    g.fillStyle = "#1d1936"; g.fillRect(cx - 11, by - 14, 22, 15);
+    g.fillStyle = "#fff4d6"; g.fillRect(cx - 10, by - 13, 20, 13);
+    g.fillStyle = "#1d1936"; for (var r = 0; r < 6; r++) g.fillRect(cx - 12 + r, by - 15 - r, 24 - r * 2, 1);
+    g.fillStyle = "#6c63b5"; for (r = 0; r < 5; r++) g.fillRect(cx - 11 + r, by - 15 - r, 22 - r * 2, 1);
+    g.fillStyle = "#2a2550"; g.fillRect(cx - 2, by - 6, 4, 6);
+    g.drawImage(sp.book, cx - 6, by - 13);
+  } else if (p.k === "fountain") {
+    g.fillStyle = "#1d1936"; g.fillRect(cx - 9, by - 7, 18, 7);
+    g.fillStyle = "#b9b4c9"; g.fillRect(cx - 8, by - 6, 16, 5);
+    g.fillStyle = "#6f8ff0"; g.fillRect(cx - 6, by - 6, 12, 3);
+    g.fillStyle = "#8f89a8"; g.fillRect(cx - 1, by - 13, 2, 7);
+    g.fillStyle = "#8fd3ff"; var ph = (t * 6) % 6;
+    g.fillRect(cx - 3, by - 13 + Math.floor(ph), 1, 1); g.fillRect(cx + 2, by - 13 + Math.floor((ph + 3) % 6), 1, 1);
+    if (reviewKeys(true).length) { g.fillStyle = "#ffcc33"; g.fillRect(cx - 1, by - 18 - Math.round(Math.abs(Math.sin(t * 3)) * 2), 2, 3); }
+  } else if (p.k === "board") {
+    g.fillStyle = "#6b3a1c"; g.fillRect(cx - 6, by - 6, 2, 6); g.fillRect(cx + 4, by - 6, 2, 6);
+    g.fillStyle = "#1d1936"; g.fillRect(cx - 8, by - 15, 16, 10);
+    g.fillStyle = "#b07a43"; g.fillRect(cx - 7, by - 14, 14, 8);
+    g.fillStyle = "#fff4d6"; g.fillRect(cx - 4, by - 13, 8, 6);
+    if (S.dailyDone !== dayKey()) { g.fillStyle = "#ffcc33"; var jy = Math.round(Math.abs(Math.sin(t * 3)) * 2); g.fillRect(cx - 1, by - 22 - jy, 2, 4); g.fillRect(cx - 1, by - 17 - jy, 2, 1); }
+  } else if (p.k === "project") {
+    var pj = PROJECTS[projIndex(p.id)], po = projUnlocked(pj), pd = !!(S.proj[pj.id] && S.proj[pj.id].done);
+    g.fillStyle = "#59547f"; g.fillRect(cx - 7, by - 3, 14, 3);
+    if (!po) g.globalAlpha = 0.55;
+    g.drawImage(sp.chest, cx - 6, by - 12);
+    g.globalAlpha = 1;
+    if (pd) g.drawImage(sp.star, cx - 4, by - 22);
+    else if (!po) g.drawImage(sp.lock, cx - 4, by - 21);
+    else { g.fillStyle = "#ffcc33"; var cy2 = by - 17 - Math.round(Math.abs(Math.sin(t * 3)) * 2); g.fillRect(cx - 1, cy2, 2, 3); }
+  } else if (p.k === "altar") {
+    var cu = certUnlocked();
+    g.fillStyle = "#1d1936"; g.fillRect(cx - 6, by - 6, 12, 6); g.fillStyle = "#b9b4c9"; g.fillRect(cx - 5, by - 5, 10, 4);
+    if (!cu) g.globalAlpha = 0.7;
+    g.drawImage(cu ? sp.scroll : sp.scrollGray, cx - 5, by - 17 - (cu ? Math.round(Math.sin(t * 2)) : 0));
+    g.globalAlpha = 1;
+  }
+}
+function drawSnake(g, t) {
+  var n = snakeLen(), spacing = 7, tr = WV.trail, idx = tr.length - 1, acc = 0, pts = [];
+  for (var k = 1; k <= n; k++) {
+    var need = k * spacing;
+    while (idx > 0 && acc < need) { acc += Math.hypot(tr[idx].x - tr[idx - 1].x, tr[idx].y - tr[idx - 1].y); idx--; }
+    pts.push(tr[Math.max(0, idx)]);
+  }
+  g.fillStyle = "rgba(29,25,54,.22)"; g.fillRect(Math.round(WV.x) - 6, Math.round(WV.y) + 4, 12, 3);
+  for (var i = pts.length - 1; i >= 0; i--) {
+    var p = pts[i], sz = i >= n - 1 ? 5 : i >= n - 2 ? 7 : 9, x = Math.round(p.x - sz / 2), y = Math.round(p.y - sz / 2);
+    g.fillStyle = "#1d1936"; g.fillRect(x - 1, y - 1, sz + 2, sz + 2);
+    g.fillStyle = "#58c14a"; g.fillRect(x, y, sz, sz);
+    g.fillStyle = "#a8ec7a"; g.fillRect(x, y, sz - 1, 1); g.fillRect(x, y, 1, sz - 1);
+    g.fillStyle = "#2f8a2b"; g.fillRect(x + 1, y + sz - 1, sz - 1, 1);
+    if (i % 3 === 1 && sz >= 7) { g.fillStyle = "#ffcc33"; g.fillRect(x + (sz >> 1) - 1, y + (sz >> 1) - 1, 2, 2); }
+  }
+  var hx = Math.round(WV.x), hy = Math.round(WV.y), ang = [0, Math.PI / 2, Math.PI, -Math.PI / 2][WV.dir];
+  g.save(); g.translate(hx, hy); g.rotate(ang);
+  g.drawImage(WG.spr.head, -6, -5);
+  if (Math.floor(t * 1.6) % 3 === 0) { g.fillStyle = "#ec3f55"; g.fillRect(6, -1, 3, 2); g.fillRect(9, -2, 1, 1); g.fillRect(9, 1, 1, 1); }
+  g.restore();
+}
+function worldDraw(t) {
+  var g = WV.ctx, s = WV.s, cw = WV.cv.width, ch = WV.cv.height, vw = cw / s, vh = ch / s, mw = MW * TS, mh = MH * TS;
+  var camX = vw >= mw ? -(vw - mw) / 2 : Math.max(0, Math.min(mw - vw, WV.x - vw / 2));
+  var camY = vh >= mh ? -(vh - mh) / 2 : Math.max(0, Math.min(mh - vh, WV.y - vh / 2));
+  camX = Math.round(camX); camY = Math.round(camY);
+  WV.camX = camX; WV.camY = camY;
+  g.setTransform(1, 0, 0, 1, 0, 0);
+  g.fillStyle = "#3f62d0"; g.fillRect(0, 0, cw, ch);
+  g.imageSmoothingEnabled = false;
+  g.setTransform(s, 0, 0, s, -camX * s, -camY * s);
+  var x0 = Math.max(0, Math.floor(camX / TS)), y0 = Math.max(0, Math.floor(camY / TS)), x1 = Math.min(MW - 1, Math.ceil((camX + vw) / TS)), y1 = Math.min(MH - 1, Math.ceil((camY + vh) / TS));
+  var sx = Math.max(0, camX), sy = Math.max(0, camY), sw = Math.min(mw, camX + vw + 1) - sx, sh = Math.min(mh, camY + vh + 1) - sy;
+  if (sw > 0 && sh > 0) g.drawImage(WG.terrain, sx, sy, sw, sh, sx, sy, sw, sh);
+  // eau et lave animées
+  for (var ty = y0; ty <= y1; ty++) for (var tx = x0; tx <= x1; tx++) {
+    var gt = WG.G[ty][tx];
+    if (gt === "W") {
+      var ph = (t * 0.8 + hh(tx, ty, 31)) % 1;
+      if (ph < 0.5) { g.fillStyle = "#c9d6ff"; g.fillRect(tx * TS + 2 + Math.floor(hh(tx, ty, 32) * 10), ty * TS + 3 + Math.floor(ph * 18), 3, 1); }
+    } else if (gt === "L") {
+      var lp = (t * 1.1 + hh(tx, ty, 33)) % 1;
+      if (lp < 0.35) { g.fillStyle = "#ffe08a"; g.fillRect(tx * TS + 4 + Math.floor(hh(tx, ty, 34) * 8), ty * TS + 5 + Math.floor(hh(tx, ty, 35) * 6), 2, 2); }
+    }
+  }
+  // repère de destination
+  if (WV.mark) {
+    var mk = WV.mark, pulse = Math.floor(t * 4) % 2;
+    g.fillStyle = "#ffcc33";
+    var mx0 = mk.x * TS + (pulse ? 2 : 3), my0 = mk.y * TS + (pulse ? 2 : 3), ms = pulse ? 12 : 10;
+    g.fillRect(mx0, my0, 3, 1); g.fillRect(mx0, my0, 1, 3); g.fillRect(mx0 + ms - 3, my0, 3, 1); g.fillRect(mx0 + ms - 1, my0, 1, 3);
+    g.fillRect(mx0, my0 + ms - 1, 3, 1); g.fillRect(mx0, my0 + ms - 3, 1, 3); g.fillRect(mx0 + ms - 3, my0 + ms - 1, 3, 1); g.fillRect(mx0 + ms - 1, my0 + ms - 3, 1, 3);
+  }
+  // lieux puis serpent, triés par profondeur
+  var ci = currentIndex(), curId = ci >= 0 ? LEVELS[ci].id : null, drawnSnake = false;
+  var vis = POIS.filter(function (p) { return p.x >= x0 - 1 && p.x <= x1 + 1 && p.y >= y0 - 1 && p.y <= y1 + 2; }).sort(function (a, b) { return a.y - b.y; });
+  for (var i = 0; i < vis.length; i++) {
+    if (!drawnSnake && vis[i].y * TS + 8 > WV.y) { drawSnake(g, t); drawnSnake = true; }
+    drawPOI(g, vis[i], t);
+  }
+  if (!drawnSnake) drawSnake(g, t);
+  // flèche sur la prochaine quête + étiquettes
+  g.font = "9px 'Jersey 10', monospace"; g.textAlign = "center"; g.textBaseline = "middle";
+  for (i = 0; i < vis.length; i++) {
+    var p = vis[i], cx = p.x * TS + 8, top = p.y * TS - 12;
+    if (p.id === curId) {
+      var by = top - 6 - Math.round(Math.abs(Math.sin(t * 4)) * 3);
+      g.fillStyle = "#1d1936"; g.fillRect(cx - 4, by - 1, 9, 2); g.fillRect(cx - 3, by + 1, 7, 1); g.fillRect(cx - 2, by + 2, 5, 1); g.fillRect(cx - 1, by + 3, 3, 1);
+      g.fillStyle = "#ffcc33"; g.fillRect(cx - 3, by - 1, 7, 1); g.fillRect(cx - 2, by, 5, 1); g.fillRect(cx - 1, by + 1, 3, 1); g.fillRect(cx, by + 2, 1, 1);
+    }
+    var near = Math.hypot(cx - WV.x, p.y * TS + 8 - WV.y) < 90;
+    var lab = p.k === "quest" ? p.id : near ? ({ library: "Bibliothèque", fountain: "Fontaine", board: "Quête du jour", project: "Projet", boss: "Dragon", altar: "Certificat" }[p.k]) : "";
+    if (!lab) continue;
+    var tw = Math.ceil(g.measureText(lab).width) + 6, ly = p.y * TS + 21;
+    g.fillStyle = "rgba(29,25,54,.82)"; g.fillRect(Math.round(cx - tw / 2), ly - 5, tw, 10);
+    g.fillStyle = S.done[p.id] ? "#ffcc33" : "#f5f3ff"; g.fillText(lab, cx, ly + 0.5);
+  }
+}
+
+/* ---------- Cartes d'accueil ---------- */
+function exploreCard() {
+  return '<section class="box explore"><div class="explore-art">' + px("snake", 3.6) + '</div>' +
+    '<div class="ctext"><div class="eyebrow">Monde ouvert' + DOTS + "</div><h3>Explore le monde de Pixel Python</h3>" +
+    '<p class="sub">Déplace Kai librement : chaque terminal est une quête, la bibliothèque garde les cours, la fontaine tes révisions. Ton serpent grandit à chaque quête réussie.</p></div>' +
+    '<button class="btn btn-gold" data-act="world">' + px("playk", 3) + "Explorer</button></section>";
+}
+
 /* ---------- Certificat ---------- */
 function renderCert() {
   if (!certUnlocked()) return renderHome();
@@ -4596,10 +5582,30 @@ document.addEventListener("click", function (e) {
   var b = e.target.closest && e.target.closest("[data-act]");
   if (!b || b.disabled) return;
   var act = b.getAttribute("data-act");
-  if (act === "home") { closeModal(); renderHome(); window.scrollTo(0, 0); }
+  if (act === "home") { if (view.screen === "world") worldSavePos(); closeModal(); renderHome(); window.scrollTo(0, 0); }
   else if (act === "open") { closeModal(); openLevel(b.getAttribute("data-id")); }
   else if (act === "daily") { openLevel("daily"); }
   else if (act === "cert") { closeModal(); renderCert(); }
+  else if (act === "world") { closeModal(); renderWorld(); }
+  else if (act === "wenter") { if (WV.active) poiEnter(WV.active); }
+  else if (act === "closemodal") closeModal();
+  else if (act === "project") { closeModal(); openProject(b.getAttribute("data-id")); }
+  else if (act === "phint") {
+    var pp = PROJECTS[projIndex(view.id)], ps = projState(pp);
+    document.getElementById("helpBox").innerHTML = '<div class="hintbox"><b>Indice</b><p>' + inline(pp.steps[ps.step].hint) + "</p></div>";
+  }
+  else if (act === "psol") {
+    var pq = PROJECTS[projIndex(view.id)], pst = projState(pq);
+    document.getElementById("helpBox").innerHTML = '<div class="hintbox"><b>Solution de l\'étape</b>' + codeCard("Une solution possible", '<pre class="code">' + hl(pq.steps[pst.step].solution) + "</pre>",
+      '<div class="code-foot"><button class="mini" data-act="pusesol">Copier dans l\'éditeur</button></div>') + "<p>Lis-la ligne par ligne, puis réécris-la à ta façon.</p></div>";
+  }
+  else if (act === "pusesol") { var pr = PROJECTS[projIndex(view.id)], prs = projState(pr), tq = document.getElementById("code"); tq.value = pr.steps[prs.step].solution; tq.dispatchEvent(new Event("input")); }
+  else if (act === "review") { closeModal(); RV = null; renderReview(); window.scrollTo(0, 0); }
+  else if (act === "rva") reviewAnswer(+b.getAttribute("data-o"));
+  else if (act === "rvnext") reviewNext();
+  else if (act === "savecopy") saveCopy(b);
+  else if (act === "savepaste") savePaste();
+  else if (act === "saveload") saveLoad(b);
   else if (act === "courses") { closeModal(); renderCourses(); }
   else if (act === "course") { closeModal(); openCourse(b.getAttribute("data-id"), b.getAttribute("data-from")); }
   else if (act === "exrun" || act === "exedit" || act === "exreset") exAction(act, b);
@@ -4609,7 +5615,7 @@ document.addEventListener("click", function (e) {
     var qz = document.getElementById("quiz"); qz.innerHTML = quizHtml(cq); qz.scrollIntoView({ block: "start" });
   }
   else if (act === "run") doRun();
-  else if (act === "check") doCheck();
+  else if (act === "check") { if (view.screen === "project") projCheck(); else doCheck(); }
   else if (act === "try" || act === "copyex") {
     var L = getLevel(view.id);
     if (act === "copyex") { var ta2 = document.getElementById("code"); ta2.value = L.example; ta2.dispatchEvent(new Event("input")); ta2.focus(); return; }
@@ -4648,7 +5654,7 @@ document.addEventListener("click", function (e) {
   }
 });
 document.addEventListener("keydown", function (e) {
-  if (e.key === "Escape" && document.getElementById("modal")) { closeModal(); renderHome(); }
+  if (e.key === "Escape" && document.getElementById("modal")) { closeModal(); if (FROM_WORLD) renderWorld(); else renderHome(); }
   if ((e.ctrlKey || e.metaKey) && e.key === "Enter" && view.screen === "level") { e.preventDefault(); doRun(); }
 });
 
@@ -4668,6 +5674,9 @@ function start(data) {
   else if (data.screen === "cert" && certUnlocked()) renderCert();
   else if (data.screen === "course" && data.id && courseIndex(data.id) >= 0) openCourse(data.id, data.from);
   else if (data.screen === "courses") renderCourses();
+  else if (data.screen === "project" && data.id) openProject(data.id, data.code);
+  else if (data.screen === "world") renderWorld();
+  else if (data.screen === "review") renderReview();
   else renderHome();
 }
 try {
